@@ -4,6 +4,9 @@
 objs
 deps
 *.a
+a.out
+
+ft_malloc_test
 
 libft_malloc.so
 libft_malloc_x86_64_Darwin.so

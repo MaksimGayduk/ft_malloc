@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/17 13:00:48 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/17 16:33:22 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define FT_MALLOC_H
 
 #include "libft.h"
+
+void	*malloc(size_t size);
 
 #endif

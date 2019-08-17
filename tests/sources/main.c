@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/17 16:43:46 by maks             ###   ########.fr       */
+/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
+/*   Updated: 2019/08/17 16:45:34 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-void *malloc(size_t size)
+int main(void)
 {
-	ft_putnbr(size);
-	ft_putchar('\n');
-	// ft_printf("size %zu\n", size);
+	void *p;
+	p = malloc(42);
 
-
-	return NULL;
+	ft_putchar('x');
+	return (0);
 }

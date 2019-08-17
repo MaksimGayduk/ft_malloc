@@ -5,17 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/17 12:13:33 by maks              #+#    #+#              #
-#    Updated: 2019/08/17 16:50:52 by maks             ###   ########.fr        #
+#    Created: 2019/08/17 14:35:36 by maks              #+#    #+#              #
+#    Updated: 2019/08/17 16:49:56 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft_malloc_$(HOSTTYPE).so
-LINK_NAME := libft_malloc.so
-
-ifeq ($(HOSTTYPE),)
-	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
-endif
+NAME = ft_malloc_test
 
 # Compiler
 CC				:= gcc
@@ -25,7 +20,7 @@ SRC_DIR := ./sources
 OBJ_DIR	:= ./objs
 DEP_DIR	:= ./deps
 LFT_DIR := ./libft
-INC_DIR := ./includes $(LFT_DIR)/includes
+INC_DIR := ./includes ../includes ../libft/includes
 
 # Source files
 SEARCH_WILCARDS := $(addsuffix /*.c,$(SRC_DIR))
@@ -38,24 +33,21 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 INC := $(addprefix -I, $(INC_DIR))
 
 # Libs
-LFT := $(LFT_DIR)/libft.a
+FT_MALLOC := ../libft_malloc.so
 
 .PHONY = all clean fclean re
 
-all: prepare_dirs build_lib $(NAME) $(LINK_NAME)
+all: prepare_dirs build_ft_malloc $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) -dynamiclib $^ -o $(NAME) $(LFT) -install_name $(abspath $(NAME))
-
-$(LINK_NAME):
-	ln -sf $(NAME) $(LINK_NAME)
+	$(CC) $(FLAGS) $(FT_MALLOC) $(INC) $^ -o $(NAME) ../libft/libft.a
 
 prepare_dirs:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(DEP_DIR)
 
-build_lib:
-	@make -s -C $(LFT_DIR)
+build_ft_malloc:
+	@make -C ../
 
 VPATH := $(SRC_DIR)
 
@@ -63,16 +55,14 @@ $(OBJ_DIR)/%.o: %.c
 	$(CC) $(FLAGS) $(INC) -MMD -MF $(DEP_DIR)/$(notdir $(patsubst %.o,%.d,$@)) -c $< -o $@
 
 clean:
-	@make -s -C $(LFT_DIR) clean
 	rm -rf $(OBJ_DIR)
 	rm -rf $(DEP_DIR)
 
 fclean: clean
-	rm -f $(LFT)
+	@make fclean -C ../
 	rm -f $(NAME)
-	rm -f $(LINK_NAME)
 
 re: fclean all
 
 debug:
-	@echo $(FLAGS)
+	@echo $(DEBUG)
