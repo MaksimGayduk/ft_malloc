@@ -6,15 +6,15 @@
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 14:35:36 by maks              #+#    #+#              #
-#    Updated: 2019/08/17 16:49:56 by maks             ###   ########.fr        #
+#    Updated: 2019/08/20 11:51:53 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_malloc_test
 
 # Compiler
-CC				:= gcc
-override FLAGS	+= -Wall -Wextra -Werror -pipe
+CC		:= gcc
+FLAGS	:= -Wall -Wextra -Werror -pipe -O0 -g
 
 SRC_DIR := ./sources
 OBJ_DIR	:= ./objs
@@ -47,12 +47,14 @@ prepare_dirs:
 	@mkdir -p $(DEP_DIR)
 
 build_ft_malloc:
-	@make -C ../
+	@make FLAGS="-O0 -g" -C ../
 
 VPATH := $(SRC_DIR)
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(FLAGS) $(INC) -MMD -MF $(DEP_DIR)/$(notdir $(patsubst %.o,%.d,$@)) -c $< -o $@
+
+include $(wildcard $(DEP_DIR)/*.d)
 
 clean:
 	rm -rf $(OBJ_DIR)
