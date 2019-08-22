@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/21 18:06:54 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/21 18:30:04 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ typedef struct				s_memory_zone
 	size_t					block_number;
 }							t_memory_zone;
 
-
-
+extern t_memory_zone g_memory_zones[];
 
 void	*malloc(size_t size);
 void	*allocate_memory(size_t size);
-void 	*init_zone(t_memory_zone *zone);
+void	*init_zone(t_memory_zone *zone);
+void	show_alloc_mem(void);
 
 #endif
