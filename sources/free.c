@@ -1,43 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 16:34:45 by maks             ###   ########.fr       */
+/*   Created: 2019/08/23 16:18:46 by maks              #+#    #+#             */
+/*   Updated: 2019/08/23 16:33:43 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-int main(void)
+void free(void *ptr)
 {
-	uintptr_t addr;
-	char *p;
+	t_block_header *block_header;
 
-	// for (int i = 0; i < 200; i++)
-	// {
-	// 	p = malloc(60);
-	// }
-
-	p = malloc(60);
-	ft_memset(p, 93, 9);
-
-	free(p);
-
-	addr = (uintptr_t)p;
-
-	p = malloc(10);
-	addr = (uintptr_t)p;
-	ft_memset(p, 94, 9);
-
-	p = malloc(230);
-	addr = (uintptr_t)p;
-	ft_memset(p, 94, 9);
-
-	show_alloc_mem();
-
-	return (0);
+	if (!ptr)
+		return;
+	block_header = (t_block_header *)HEADER_ADDRESS(ptr);
+	block_header->is_free = FT_TRUE;
 }

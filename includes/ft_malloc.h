@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 15:36:59 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 16:25:15 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct				s_block_header
 	struct s_block_header	*next;
 }							t_block_header;
 
+# define HEADER_ADDRESS(x) (((char *)(x)) - sizeof(t_block_header))
 # define DATA_ADDRESS(x) (((char *)(x)) + sizeof(t_block_header))
 # define FULL_BLOCK_SIZE(x) (sizeof(t_block_header) + (x))
 # define BLOCK_END(x) ((uintptr_t)DATA_ADDRESS(x) + (x->data_size))
@@ -58,9 +59,10 @@ typedef struct				s_memory_zone
 extern t_memory_zone g_memory_zones[];
 
 void	*malloc(size_t size);
+void 	free(void *ptr);
+void	show_alloc_mem(void);
+
 void	*allocate_memory(size_t size);
 void	*init_zone(t_memory_zone *zone);
-void 	*append_zone(t_memory_zone *zone, size_t size);
-void	show_alloc_mem(void);
 
 #endif
