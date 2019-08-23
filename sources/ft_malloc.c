@@ -6,44 +6,48 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/22 11:06:20 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 15:42:33 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
 t_memory_zone g_memory_zones[ZONE_QTY] = {
-	{NULL, TINY, 0, TINY_BLOCK_SIZE, TINY_BLOCK_NUMBER},
-	{NULL, SMALL, 0, SMALL_BLOCK_SIZE, SMALL_BLOCK_NUMBER},
-	{NULL, LARGE, 0, 0, 0}
+	{NULL, NULL, TINY, 0, TINY_BLOCK_SIZE, TINY_BLOCK_NUMBER, 0},
+	{NULL, NULL, SMALL, 0, SMALL_BLOCK_SIZE, SMALL_BLOCK_NUMBER, 0},
+	{NULL, NULL, LARGE, 0, 0, 0, 0}
 };
 
-void *get_free_block(t_memory_zone *zone, size_t size)
+void *find_free_block(t_memory_zone *zone, size_t size)
 {
-	uintptr_t addr;
-	t_block_header *header;
+	t_block_header	*header;
 
-	header = zone->first_header;
+	header = zone->first_block;
 	while (header)
 	{
-		addr = (uintptr_t)header;
-		if (header->is_free && header->block_size >= size) {
+		if (header->is_free && header->data_size >= size) {
 			header->is_free = 0;
-			header->block_size = size;
-			return (char *)header + sizeof(t_block_header);
+			header->data_size = size;
+			return DATA_ADDRESS(header);
 		}
 		header = header->next;
 	}
-
 	return NULL;
 }
 
+
 void *get_predefined_block(t_memory_zone *zone, size_t size)
 {
-	if (zone->first_header == NULL)
-		zone->first_header = (t_block_header *)init_zone(zone);
-
-	return get_free_block(zone, size);
+	t_block_header *free_block;
+	if (zone->first_block == NULL)
+		zone->first_block = (t_block_header *)init_zone(zone);
+	free_block = find_free_block(zone, size);
+	if (!free_block)
+	{
+		zone->last_block->next = (t_block_header *)init_zone(zone);
+		free_block = find_free_block(zone, size);
+	}
+	return free_block;
 }
 
 void *malloc(size_t size)

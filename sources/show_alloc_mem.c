@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 18:41:20 by maks              #+#    #+#             */
-/*   Updated: 2019/08/22 11:40:06 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 14:22:32 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void print_zone_info(unsigned int zone_number)
 {
 	uintptr_t zone_start;
 
-	zone_start = (uintptr_t)g_memory_zones[zone_number].first_header;
+	zone_start = (uintptr_t)g_memory_zones[zone_number].first_block;
 	ft_putstr(g_zone_labels[zone_number]);
 	ft_putstr(" : ");
 	zone_start ?
@@ -42,11 +42,11 @@ static size_t print_alloc_blocks(t_block_header *head)
 			block_start = (uintptr_t)head + sizeof(t_block_header);
 			ft_putnbr16(block_start, FT_FALSE, FT_TRUE);
 			ft_putstr(" - ");
-			ft_putnbr16(block_start + head->block_size, FT_FALSE, FT_TRUE);
+			ft_putnbr16(block_start + head->data_size, FT_FALSE, FT_TRUE);
 			ft_putstr(" : ");
-			ft_putnbr(head->block_size);
+			ft_putnbr(head->data_size);
 			ft_putstr(" bytes\n");
-			allocated_size += head->block_size;
+			allocated_size += head->data_size;
 		}
 
 		head = head->next;
@@ -64,7 +64,7 @@ void show_alloc_mem(void)
 	while (i < ZONE_QTY)
 	{
 		print_zone_info(i);
-		total_size += print_alloc_blocks(g_memory_zones[i].first_header);
+		total_size += print_alloc_blocks(g_memory_zones[i].first_block);
 		ft_putchar('\n');
 		i++;
 	}

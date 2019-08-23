@@ -6,7 +6,7 @@
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 12:13:33 by maks              #+#    #+#              #
-#    Updated: 2019/08/17 16:50:52 by maks             ###   ########.fr        #
+#    Updated: 2019/08/23 15:36:44 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ VPATH := $(SRC_DIR)
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(FLAGS) $(INC) -MMD -MF $(DEP_DIR)/$(notdir $(patsubst %.o,%.d,$@)) -c $< -o $@
+
+include $(wildcard $(DEP_DIR)/*.d)
 
 clean:
 	@make -s -C $(LFT_DIR) clean
