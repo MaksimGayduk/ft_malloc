@@ -6,13 +6,13 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:12:50 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 15:42:38 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 17:05:53 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-static void init_block_header(
+void init_block_header(
 	t_block_header *block_header,
 	size_t data_size,
 	t_block_header *prev)

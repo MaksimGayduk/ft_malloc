@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 16:35:20 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 17:09:43 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ void *find_free_block(t_memory_zone *zone, size_t size)
 		if (header->is_free && header->data_size >= size) {
 			header->is_free = 0;
 			header->data_size = size;
-			return DATA_ADDRESS(header);
+			return header;
 		}
 		header = header->next;
 	}
 	return NULL;
 }
-
 
 void *get_predefined_block(t_memory_zone *zone, size_t size)
 {
@@ -47,7 +46,10 @@ void *get_predefined_block(t_memory_zone *zone, size_t size)
 		zone->last_block->next = (t_block_header *)init_zone(zone);
 		free_block = find_free_block(zone, size);
 	}
-	return free_block;
+	if (!free_block)
+		return NULL;
+	fragment_block(free_block);
+	return (free_block);
 }
 
 void *malloc(size_t size)
@@ -60,5 +62,5 @@ void *malloc(size_t size)
 		ptr = get_predefined_block(&g_memory_zones[zone_type], size);
 	}
 
-	return ptr;
+	return DATA_ADDRESS(ptr);
 }

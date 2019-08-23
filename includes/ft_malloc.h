@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 16:25:15 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 17:20:58 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ typedef struct				s_block_header
 	struct s_block_header	*next;
 }							t_block_header;
 
-# define HEADER_ADDRESS(x) (((char *)(x)) - sizeof(t_block_header))
-# define DATA_ADDRESS(x) (((char *)(x)) + sizeof(t_block_header))
-# define FULL_BLOCK_SIZE(x) (sizeof(t_block_header) + (x))
+# define HEADER_SIZE (sizeof(t_block_header))
+# define HEADER_ADDRESS(x) (((char *)(x)) - HEADER_SIZE)
+# define DATA_ADDRESS(x) (((char *)(x)) + HEADER_SIZE)
+# define DATA_END_ADDRESS(x) (DATA_ADDRESS(x) + (x->data_size))
+# define FULL_BLOCK_SIZE(x) ((HEADER_SIZE) + (x))
 # define BLOCK_END(x) ((uintptr_t)DATA_ADDRESS(x) + (x->data_size))
 # define PAGE_END(x) (((uintptr_t)(x)) | 0xFFF)
 
@@ -64,5 +66,10 @@ void	show_alloc_mem(void);
 
 void	*allocate_memory(size_t size);
 void	*init_zone(t_memory_zone *zone);
+void	fragment_block(t_block_header *header);
+void 	init_block_header(
+			t_block_header *block_header,
+			size_t data_size,
+			t_block_header *prev);
 
 #endif

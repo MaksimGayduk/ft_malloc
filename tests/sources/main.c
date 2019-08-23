@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 16:34:45 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/23 18:05:03 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int main(void)
 	// 	p = malloc(60);
 	// }
 
-	p = malloc(60);
+	p = malloc(10);
+	p = malloc(13);
+
 	ft_memset(p, 93, 9);
 
-	free(p);
+	// free(p);
 
 	addr = (uintptr_t)p;
 
