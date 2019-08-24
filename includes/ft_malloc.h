@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 10:37:52 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 15:57:20 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,22 @@ typedef	enum
 typedef struct				s_block_header
 {
 	t_bool					is_free;
+	char					zone_type;
 	size_t					data_size;
 	struct s_block_header	*prev;
 	struct s_block_header	*next;
 }							t_block_header;
 
 # define HEADER_SIZE (sizeof(t_block_header))
-# define HEADER_ADDRESS(x) (((char *)(x)) - HEADER_SIZE)
-# define DATA_ADDRESS(x) (((char *)(x)) + HEADER_SIZE)
+# define __HEADER_ADDR(x) ((t_block_header *)(((char *)(x)) - HEADER_SIZE))
+# define HEADER_ADDRESS(x) ((x) ? (__HEADER_ADDR(x)) : (NULL))
+# define DATA_ADDRESS(x) ((x) ? ((char *)(x)) + HEADER_SIZE : (NULL))
 # define DATA_END_ADDRESS(x) (DATA_ADDRESS(x) + (x->data_size))
 # define FULL_BLOCK_SIZE(x) ((HEADER_SIZE) + (x))
 # define BLOCK_END(x) ((uintptr_t)DATA_ADDRESS(x) + (x->data_size))
 # define PAGE_END(x) (((uintptr_t)(x)) | 0xFFF)
+# define CONTINIOUS(x, y) (BLOCK_END(x) == (uintptr_t)(y))
+# define GET_ZONE_TYPE(x) ((x > TINY_BLOCK_SIZE) + (x > SMALL_BLOCK_SIZE))
 
 typedef struct				s_memory_zone
 {
@@ -64,14 +68,18 @@ typedef struct				s_memory_zone
 extern t_memory_zone g_memory_zones[];
 
 void	*malloc(size_t size);
+void 	*realloc(void *ptr, size_t size);
 void 	free(void *ptr);
 void	show_alloc_mem(void);
 
+void 	* __malloc(size_t size);
+void	__free(void *ptr);
 void	*allocate_memory(size_t size);
 void	*init_zone(t_memory_zone *zone);
 void	fragment_block(t_block_header *header);
 void 	init_block_header(
 			t_block_header *block_header,
+			char zone,
 			size_t data_size,
 			t_block_header *prev);
 

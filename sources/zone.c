@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:12:50 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 17:05:53 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 14:03:12 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void init_block_header(
 	t_block_header *block_header,
+	char zone_type,
 	size_t data_size,
 	t_block_header *prev)
 {
 	ft_bzero(block_header, sizeof(t_block_header));
 	block_header->is_free = 1;
+	block_header->zone_type = zone_type;
 	block_header->data_size = data_size;
 	block_header->prev = prev;
 }
@@ -38,7 +40,7 @@ static void fill_memory_with_blocks(
 	last_block = zone->last_block;
 	while (i <= allocation_size - full_block_size)
 	{
-		init_block_header(&block_header, zone->data_size, last_block);
+		init_block_header(&block_header, zone->type, zone->data_size, last_block);
 		ft_memcpy(&mem[i], &block_header, sizeof(block_header));
 		if (last_block)
 			last_block->next = (t_block_header *)&mem[i];

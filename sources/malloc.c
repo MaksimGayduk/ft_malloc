@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 10:45:47 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 14:43:37 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,30 @@ void *get_predefined_block(t_memory_zone *zone, size_t size)
 	return (free_block);
 }
 
-void *malloc(size_t size)
+void * __malloc(size_t size)
 {
-	void		*ptr = NULL;
-	const int	zone_type = (size > TINY_BLOCK_SIZE) + (size > SMALL_BLOCK_SIZE);
+	void		*ptr;
+	const int	zone_type = GET_ZONE_TYPE(size);
 
-	if (!size)
-		return NULL;
-	pthread_mutex_lock(&g_malloc_mutex);
-	if (zone_type == TINY || SMALL)
+	ptr = NULL;
+	if (zone_type == TINY || zone_type == SMALL)
 	{
 		ptr = get_predefined_block(&g_memory_zones[zone_type], size);
 	}
-	pthread_mutex_unlock(&g_malloc_mutex);
-	return DATA_ADDRESS(ptr);
+	return (DATA_ADDRESS(ptr));
+}
+
+void *malloc(size_t size)
+{
+	void *ptr;
+
+	if (!size)
+		return NULL;
+	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
+	{
+		ptr = __malloc(size);
+		pthread_mutex_unlock(&g_malloc_mutex);
+		return (ptr);
+	}
+	return (NULL);
 }
