@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 17:20:58 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 10:37:52 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_MALLOC_H
 
 # include <sys/mman.h>
+# include <pthread.h>
 # include "libft.h"
 
 # define ZONE_QTY 3
@@ -23,6 +24,8 @@
 
 # define TINY_BLOCK_NUMBER	120
 # define SMALL_BLOCK_NUMBER	100
+
+extern pthread_mutex_t		g_malloc_mutex;
 
 typedef	enum
 {

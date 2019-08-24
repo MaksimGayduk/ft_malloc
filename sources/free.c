@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:18:46 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 16:33:43 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 10:43:39 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void free(void *ptr)
 
 	if (!ptr)
 		return;
+	pthread_mutex_lock(&g_malloc_mutex);
 	block_header = (t_block_header *)HEADER_ADDRESS(ptr);
 	block_header->is_free = FT_TRUE;
+	pthread_mutex_unlock(&g_malloc_mutex);
 }
