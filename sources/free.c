@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:18:46 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 16:00:00 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 18:20:48 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	__free(void *ptr)
 
 	block_header = HEADER_ADDRESS(ptr);
 	block_header->is_free = FT_TRUE;
+	defragment_block(block_header);
 }
 
 void	free(void *ptr)

@@ -6,13 +6,13 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:36:59 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 14:01:31 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 19:29:07 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-void fragment_block(t_block_header *header)
+void	fragment_block(t_block_header *header)
 {
 	t_block_header fragment_header;
 	size_t	size_gap;
@@ -39,4 +39,30 @@ void fragment_block(t_block_header *header)
 			header->next->prev = (t_block_header *)DATA_END_ADDRESS(header);
 		header->next = header->next->prev;
 	}
+}
+
+static t_block_header *defragment_back(t_block_header *header)
+{
+	t_block_header *start_block;
+	size_t size;
+
+	start_block = header;
+	while ((header = header->prev) && header->is_free)
+	{
+		size = FULL_BLOCK_SIZE(start_block->data_size);
+		size += REAL_DATA_SIZE(header);
+		if (!(size <= g_memory_zones[(int)start_block->zone_type].data_size
+			&& BLOCKS_CONTINIOUS(header, start_block)))
+			break;
+		header->data_size = size;
+		header->next = start_block->next;
+		start_block->next->prev = header;
+		start_block = header;
+	}
+	return (start_block);
+}
+
+void	defragment_block(t_block_header *header)
+{
+	header = defragment_back(header);
 }

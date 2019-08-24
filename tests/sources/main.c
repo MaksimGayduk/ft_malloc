@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 14:15:30 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/24 19:13:35 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,24 @@ int main(void)
 	uintptr_t addr;
 	char *p;
 	char *x;
+	char *c;
+
 
 	// for (int i = 0; i < 200; i++)
 	// {
 	// 	p = malloc(60);
 	// }
 
+	c = malloc(32);
 	p = malloc(20);
-	x = malloc(10);
+	x = malloc(11);
+
+	free(c);
+	free(p);
+	free(x);
+
+	p = malloc(42);
+	// free(p);
 
 	p = realloc(p, 200);
 
