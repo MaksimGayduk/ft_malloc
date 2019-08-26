@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 19:13:35 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 10:44:26 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int main(void)
 	p = malloc(20);
 	x = malloc(11);
 
-	free(c);
-	free(p);
-	free(x);
+	// free(c);
+	// free(p);
+	// free(x);
 
-	p = malloc(42);
+	// p = malloc(42);
 	// free(p);
 
 	p = realloc(p, 200);

@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 19:27:52 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 10:46:40 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ void 	*realloc(void *ptr, size_t size);
 void 	free(void *ptr);
 void	show_alloc_mem(void);
 
-void 	* __malloc(size_t size);
-void	__free(void *ptr);
 void	*allocate_memory(size_t size);
 void	*init_zone(t_memory_zone *zone);
 void	fragment_block(t_block_header *header);

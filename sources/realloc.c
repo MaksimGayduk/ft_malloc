@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:15:36 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 17:59:13 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 10:46:45 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ t_block_header	*relocate_block(void *ptr, size_t size)
 {
 	void *data_addr;
 
-	data_addr = __malloc(size);
+	data_addr = malloc(size);
 	if (data_addr)
 	{
 		ft_memcpy(data_addr, ptr, size);
-		__free(ptr);
+		free(ptr);
 	}
 	return (HEADER_ADDRESS(data_addr));
 }
