@@ -6,13 +6,13 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:32:27 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 16:32:41 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 18:47:17 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tiny_zone_tests.h"
+#include "malloc_tests.h"
 
-void realloc_page_end()
+void t_realloc_page_end()
 {
 	char *p;
 	char *x;
@@ -23,7 +23,7 @@ void realloc_page_end()
 	x = realloc(x, 64);
 }
 
-void realloc_zone_end()
+void t_realloc_zone_end()
 {
 	char *p;
 	char *x;

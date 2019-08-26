@@ -6,11 +6,11 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:45:29 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 17:07:43 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 18:47:11 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tiny_zone_tests.h"
+#include "malloc_tests.h"
 
 #define THREADS_NUM 2
 #define CREATE_THREAD_ERROR	-11
@@ -29,7 +29,7 @@ static void	*thread_malloc(void *args)
 	return (SUCCESS);
 }
 
-void	multi_thread_allocation(void)
+void	t_multi_thread_allocation(void)
 {
 	pthread_t threads[THREADS_NUM];
     unsigned int i;

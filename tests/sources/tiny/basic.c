@@ -6,13 +6,13 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:00:56 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 16:32:59 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 18:48:18 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tiny_zone_tests.h"
+#include "malloc_tests.h"
 
-void	basic_usage(void)
+void	t_basic_usage(void)
 {
 	char *p;
 	char *x;
@@ -28,7 +28,7 @@ void	basic_usage(void)
 	free(c);
 }
 
-void fragmentation(void)
+void t_fragmentation(void)
 {
 	char *p;
 	char *x;
@@ -37,7 +37,7 @@ void fragmentation(void)
 	x = malloc(10);
 }
 
-void defrag_backward()
+void t_defrag_backward()
 {
 	char *p;
 	char *x;

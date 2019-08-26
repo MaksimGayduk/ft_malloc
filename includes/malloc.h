@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 16:23:39 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 18:35:08 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 # define ZONE_QTY 3
 
-# define TINY_BLOCK_SIZE	64
-# define SMALL_BLOCK_SIZE	512
+# define TINY_BLOCK_SIZE	512
+# define SMALL_BLOCK_SIZE	4096
 
 # define TINY_BLOCK_NUMBER	120
 # define SMALL_BLOCK_NUMBER	100
@@ -68,7 +68,6 @@ typedef struct				s_block_header
 /* Offest ftom start of one block to start of another */
 # define BLOCKS_OFFSET(x, y) ((TO_SCALAR(y) - TO_SCALAR(x)))
 
-// TODO: TEST WITH ONE BLOCK ON THE PAGE
 # define _PBE(x) (PAGE_LIMIT(BLOCK_END(x) - 1) - TO_SCALAR(x))
 /* Size of block with gap to next the block */
 # define REAL_BLOCK_SIZE(x) (x->next ? BLOCKS_OFFSET(x, x->next) : _PBE(x))

@@ -6,7 +6,7 @@
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 14:35:36 by maks              #+#    #+#              #
-#    Updated: 2019/08/26 13:14:09 by maks             ###   ########.fr        #
+#    Updated: 2019/08/26 18:42:49 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ DEP_DIR	:= ./deps
 LFT_DIR := ./libft
 INC_DIR := ./includes ../includes ../libft/includes
 
-ZONES := tiny
+ZONES := tiny large
 ZONES_DIRS := $(addprefix $(SRC_DIR)/, $(ZONES))
 SRC_DIRS := $(SRC_DIR) $(ZONES_DIRS)
 
@@ -71,4 +71,4 @@ fclean: clean
 re: fclean all
 
 debug:
-	@echo $(DEBUG)
+	@echo $(SEARCH_WILCARDS)
