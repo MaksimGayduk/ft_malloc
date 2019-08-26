@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_case.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:25:55 by maks             ###   ########.fr       */
+/*   Created: 2019/08/26 13:20:40 by maks              #+#    #+#             */
+/*   Updated: 2019/08/26 13:22:31 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_tests.h"
+#include "test_case.h"
 
-int main(void)
+void testcase(void (*test)(void), char *title)
 {
-	test_tiny_zone();
-
-	return (0);
+	ft_putstr("~~~");
+	ft_putstr(title);
+	ft_putendl("~~~");
+	(*test)();
+	show_alloc_mem();
+	reset_allocations();
+	ft_putendl("~~~~~~~~~\n");
 }

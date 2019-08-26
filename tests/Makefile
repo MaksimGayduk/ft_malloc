@@ -6,7 +6,7 @@
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 14:35:36 by maks              #+#    #+#              #
-#    Updated: 2019/08/20 11:51:53 by maks             ###   ########.fr        #
+#    Updated: 2019/08/26 13:14:09 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,12 @@ DEP_DIR	:= ./deps
 LFT_DIR := ./libft
 INC_DIR := ./includes ../includes ../libft/includes
 
+ZONES := tiny
+ZONES_DIRS := $(addprefix $(SRC_DIR)/, $(ZONES))
+SRC_DIRS := $(SRC_DIR) $(ZONES_DIRS)
+
 # Source files
-SEARCH_WILCARDS := $(addsuffix /*.c,$(SRC_DIR))
+SEARCH_WILCARDS := $(addsuffix /*.c,$(SRC_DIRS))
 SRC := $(notdir $(wildcard $(SEARCH_WILCARDS)))
 
 # Object files
@@ -49,7 +53,7 @@ prepare_dirs:
 build_ft_malloc:
 	@make FLAGS="-O0 -g" -C ../
 
-VPATH := $(SRC_DIR)
+VPATH := $(SRC_DIRS)
 
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(FLAGS) $(INC) -MMD -MF $(DEP_DIR)/$(notdir $(patsubst %.o,%.d,$@)) -c $< -o $@

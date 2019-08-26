@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test_case.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:25:55 by maks             ###   ########.fr       */
+/*   Created: 2019/08/26 13:21:11 by maks              #+#    #+#             */
+/*   Updated: 2019/08/26 13:23:01 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_tests.h"
+#ifndef TEST_CASE_H
+# define TEST_CASE_H
 
-int main(void)
-{
-	test_tiny_zone();
+# include "malloc.h"
 
-	return (0);
-}
+void testcase(void (*test)(void), char *title);
+
+#endif

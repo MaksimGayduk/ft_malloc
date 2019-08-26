@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   malloc_tests.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:25:55 by maks             ###   ########.fr       */
+/*   Created: 2019/08/26 13:03:05 by maks              #+#    #+#             */
+/*   Updated: 2019/08/26 13:28:25 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_tests.h"
+#ifndef MALLOC_TEST_H
+# define MALLOC_TEST_H
 
-int main(void)
-{
-	test_tiny_zone();
+# include "malloc.h"
 
-	return (0);
-}
+void	test_tiny_zone(void);
+
+
+#endif

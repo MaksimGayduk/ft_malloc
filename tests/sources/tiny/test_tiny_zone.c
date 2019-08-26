@@ -5,16 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:25:55 by maks             ###   ########.fr       */
+/*   Created: 2019/08/26 13:02:08 by maks              #+#    #+#             */
+/*   Updated: 2019/08/26 13:06:36 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_tests.h"
+#include "tiny_zone_tests.h"
 
-int main(void)
+void	test_tiny_zone(void)
 {
-	test_tiny_zone();
-
-	return (0);
+	testcase(basic_usage, "BASIC USAGE: TINY ZONE");
+	testcase(fragmentation, "FRAGMENTAION OF THE FIRST BLOCK IN TINY ZONE");
+	testcase(defragmentation_backward, "BACKWARD DEFRAGMENTATION");
 }
