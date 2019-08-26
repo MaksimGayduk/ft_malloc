@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.h                                        :+:      :+:    :+:   */
+/*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 11:19:31 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:08:06 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MALLOC_H
-# define FT_MALLOC_H
+#ifndef MALLOC_H
+# define MALLOC_H
 
 # include <sys/mman.h>
 # include <pthread.h>
@@ -42,6 +42,8 @@ typedef struct				s_block_header
 	struct s_block_header	*prev;
 	struct s_block_header	*next;
 }							t_block_header;
+
+# define ALIGN_TO_PAGE_SIZE(x) (FT_ALIGN_TO(x, getpagesize()))
 
 /* Converts address int pointer to scalar value*/
 # define TO_SCALAR(x) ((uintptr_t)(x))
@@ -90,7 +92,6 @@ typedef struct				s_memory_zone
 	size_t					size;
 	size_t					data_size;
 	size_t					block_number;
-	size_t					block_number_current;
 }							t_memory_zone;
 
 extern t_memory_zone g_memory_zones[];
@@ -101,6 +102,7 @@ void 	free(void *ptr);
 void	show_alloc_mem(void);
 
 void	*allocate_memory(size_t size);
+void 	reset_allocations(void);
 void	*init_zone(t_memory_zone *zone);
 void	fragment_block(t_block_header *header);
 void	defragment_block(t_block_header *header);

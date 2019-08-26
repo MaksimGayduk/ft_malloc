@@ -6,16 +6,16 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 10:45:58 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:09:59 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 t_memory_zone g_memory_zones[ZONE_QTY] = {
-	{NULL, NULL, TINY, 0, TINY_BLOCK_SIZE, TINY_BLOCK_NUMBER, 0},
-	{NULL, NULL, SMALL, 0, SMALL_BLOCK_SIZE, SMALL_BLOCK_NUMBER, 0},
-	{NULL, NULL, LARGE, 0, 0, 0, 0}
+	{NULL, NULL, TINY, 0, TINY_BLOCK_SIZE, TINY_BLOCK_NUMBER},
+	{NULL, NULL, SMALL, 0, SMALL_BLOCK_SIZE, SMALL_BLOCK_NUMBER},
+	{NULL, NULL, LARGE, 0, 0, 0}
 };
 
 pthread_mutex_t		g_malloc_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;
@@ -34,7 +34,7 @@ void *find_free_block(t_memory_zone *zone, size_t size)
 		}
 		header = header->next;
 	}
-	return NULL;
+	return (NULL);
 }
 
 void *get_predefined_block(t_memory_zone *zone, size_t size)
@@ -49,7 +49,7 @@ void *get_predefined_block(t_memory_zone *zone, size_t size)
 		free_block = find_free_block(zone, size);
 	}
 	if (!free_block)
-		return NULL;
+		return (NULL);
 	fragment_block(free_block);
 	return (free_block);
 }

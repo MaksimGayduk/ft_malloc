@@ -6,11 +6,11 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:15:36 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 11:08:58 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:10:04 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 t_block_header	*extend_block(void *ptr, size_t size)
 {
@@ -22,7 +22,7 @@ t_block_header	*extend_block(void *ptr, size_t size)
 	header = start_block;
 	if (!header)
 		return (NULL);
-	extended_size = header->data_size;
+	extended_size = REAL_DATA_SIZE(start_block);
 	while ((header = header->next))
 	{
 		if (!(header->is_free == FT_TRUE &&

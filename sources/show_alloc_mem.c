@@ -6,11 +6,11 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 18:41:20 by maks              #+#    #+#             */
-/*   Updated: 2019/08/23 14:22:32 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:10:08 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 char *g_zone_labels[] = {
 	"TINY", "SMALL", "LARGE"

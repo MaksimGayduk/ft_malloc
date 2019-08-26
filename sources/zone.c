@@ -6,11 +6,11 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:12:50 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 11:09:46 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:10:13 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 void init_block_header(
 	t_block_header *block_header,
@@ -57,13 +57,10 @@ void *init_zone(t_memory_zone *zone)
 	char 					*mem;
 
 	full_block_size = HEADER_SIZE + zone->data_size;
-	allocation_size = FT_ALIGN_TO(
-		full_block_size * zone->block_number,
-		getpagesize());
+	allocation_size = ALIGN_TO_PAGE_SIZE(full_block_size * zone->block_number);
 	zone->size += allocation_size;
-	zone->block_number_current += allocation_size / full_block_size;
 	if (!(mem = (char *)allocate_memory(zone->size)))
-		return NULL;
+		return (NULL);
 	fill_memory_with_blocks(zone, mem, allocation_size);
-	return mem;
+	return (mem);
 }

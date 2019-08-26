@@ -6,11 +6,11 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:36:59 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 11:38:50 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:10:26 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 void	fragment_block(t_block_header *header)
 {
@@ -40,7 +40,7 @@ static t_block_header *defragment_back(t_block_header *header)
 	start_block = header;
 	while ((header = header->prev) && header->is_free)
 	{
-		size = FULL_BLOCK_SIZE(start_block);
+		size = REAL_BLOCK_SIZE(start_block);
 		size += REAL_DATA_SIZE(header);
 		if (size > GET_BLOCK_ZONE(start_block).data_size ||
 			!BLOCKS_CONTINIOUS(header, start_block))
@@ -61,7 +61,6 @@ static t_block_header *defragment_forward(t_block_header *header)
 	start_block = header;
 	while ((header = header->next) && header->is_free)
 	{
-		size = GET_BLOCK_ZONE(start_block).data_size;
 		size = REAL_DATA_SIZE(start_block);
 		size += FULL_BLOCK_SIZE(header);
 		if (size > GET_BLOCK_ZONE(start_block).data_size ||

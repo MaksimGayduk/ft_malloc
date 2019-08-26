@@ -6,11 +6,11 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:18:46 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 10:46:23 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 13:10:21 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "malloc.h"
 
 void	free(void *ptr)
 {
