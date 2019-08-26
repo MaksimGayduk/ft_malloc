@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 10:46:40 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:08:39 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct				s_block_header
 # define DATA_ADDRESS(x) ((x) ? ((char *)(x)) + HEADER_SIZE : (NULL))
 # define DATA_END_ADDRESS(x) (DATA_ADDRESS(x) + (x->data_size))
 
-# define FULL_BLOCK_SIZE(x) ((HEADER_SIZE) + (x))
+# define FULL_BLOCK_SIZE(x) ((HEADER_SIZE) + (x->data_size))
 # define BLOCK_END(x) (TO_SCALAR(DATA_ADDRESS(x)) + (x->data_size))
 
 /* Page part of specified address */
@@ -73,7 +73,8 @@ typedef struct				s_block_header
 /* Offest ftom start of one block to start of another */
 # define BLOCKS_OFFSET(x, y) ((TO_SCALAR(y) - TO_SCALAR(x)))
 
-# define _PBE(x) PAGE_END(BLOCK_END(x))
+// TODO: TEST WITH ONE BLOCK ON THE PAGE
+# define _PBE(x) (PAGE_END(BLOCK_END(x)) - TO_SCALAR(x))
 /* Size of block with gap to next the block */
 # define REAL_BLOCK_SIZE(x) (x->next ? BLOCKS_OFFSET(x, x->next) : _PBE(x))
 

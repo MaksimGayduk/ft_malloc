@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:36:59 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 19:29:07 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:10:20 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,10 @@ void	fragment_block(t_block_header *header)
 {
 	t_block_header fragment_header;
 	size_t	size_gap;
-	uintptr_t block_end;
-	uintptr_t block_start;
-	uintptr_t data_addr;
 
 	if (!header)
 		return;
-	block_start = (uintptr_t)header;
-	data_addr = (uintptr_t)DATA_ADDRESS(header);
-	if (header->next)
-		block_end = (uintptr_t)header->next;
-	else
-		block_end = PAGE_END(BLOCK_END(header));
-	size_gap = block_end - (uintptr_t)DATA_END_ADDRESS(header);
+	size_gap = REAL_DATA_SIZE(header) - header->data_size;
 	if (size_gap > HEADER_SIZE)
 	{
 		init_block_header(&fragment_header, header->zone_type,
@@ -49,7 +40,7 @@ static t_block_header *defragment_back(t_block_header *header)
 	start_block = header;
 	while ((header = header->prev) && header->is_free)
 	{
-		size = FULL_BLOCK_SIZE(start_block->data_size);
+		size = FULL_BLOCK_SIZE(start_block);
 		size += REAL_DATA_SIZE(header);
 		if (!(size <= g_memory_zones[(int)start_block->zone_type].data_size
 			&& BLOCKS_CONTINIOUS(header, start_block)))

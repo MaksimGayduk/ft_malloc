@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:15:36 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 10:46:45 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:08:58 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_block_header	*extend_block(void *ptr, size_t size)
 		if (!(header->is_free == FT_TRUE &&
 			BLOCKS_CONTINIOUS(header->prev, header)))
 			return (NULL);
-		extended_size += FULL_BLOCK_SIZE(header->data_size);
+		extended_size += FULL_BLOCK_SIZE(header);
 		if (extended_size >= size)
 		{
 			start_block->next = header->next;

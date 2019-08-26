@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:12:50 by maks              #+#    #+#             */
-/*   Updated: 2019/08/24 14:03:12 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:09:46 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void fill_memory_with_blocks(
 	size_t					full_block_size;
 
 	i = 0;
-	full_block_size = FULL_BLOCK_SIZE(zone->data_size);
+	full_block_size = HEADER_SIZE + zone->data_size;
 	last_block = zone->last_block;
 	while (i <= allocation_size - full_block_size)
 	{
@@ -56,7 +56,7 @@ void *init_zone(t_memory_zone *zone)
 	size_t					allocation_size;
 	char 					*mem;
 
-	full_block_size = FULL_BLOCK_SIZE(zone->data_size);
+	full_block_size = HEADER_SIZE + zone->data_size;
 	allocation_size = FT_ALIGN_TO(
 		full_block_size * zone->block_number,
 		getpagesize());

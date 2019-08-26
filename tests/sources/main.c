@@ -6,37 +6,44 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 10:44:26 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 10:51:45 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-int main(void)
+void	basic_usage_tiny(void)
 {
-	uintptr_t addr;
 	char *p;
 	char *x;
 	char *c;
 
+	p = malloc(32);
+	x = malloc(20);
+	c = malloc(11);
+	show_alloc_mem();
+	free(p);
+	free(x);
+	free(c);
+	show_alloc_mem();
+}
+
+int main(void)
+{
+	uintptr_t addr;
+	char *p;
+	// char *x;
+	// char *c;
+
+	basic_usage_tiny();
 
 	// for (int i = 0; i < 200; i++)
 	// {
 	// 	p = malloc(60);
 	// }
 
-	c = malloc(32);
-	p = malloc(20);
-	x = malloc(11);
-
-	// free(c);
-	// free(p);
-	// free(x);
-
-	// p = malloc(42);
-	// free(p);
-
-	p = realloc(p, 200);
+	p = malloc(32);
+	// p = realloc(p, 200);
 
 	ft_memset(p, 93, 9);
 
