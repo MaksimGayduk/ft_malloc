@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:00:56 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 14:14:59 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 16:32:59 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,4 @@ void defrag_backward()
 	free(x);
 	p = malloc(15);
 	x = malloc(10);
-}
-
-void realloc_page_end()
-{
-	char *p;
-	char *x;
-
-	p = malloc(64);
-	p = realloc(p, 4000);
-	x = malloc(32);
-	x = realloc(x, 64);
-}
-
-void realloc_zone_end()
-{
-	char *p;
-	char *x;
-
-	p = malloc(64);
-	p = realloc(p, 12192);
-	x = malloc(32);
-	x = realloc(x, 64);
 }

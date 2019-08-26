@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_tests.h                                     :+:      :+:    :+:   */
+/*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 13:03:05 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 16:58:15 by maks             ###   ########.fr       */
+/*   Created: 2019/08/26 16:32:27 by maks              #+#    #+#             */
+/*   Updated: 2019/08/26 16:32:41 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MALLOC_TEST_H
-# define MALLOC_TEST_H
+#include "tiny_zone_tests.h"
 
-# include "malloc.h"
+void realloc_page_end()
+{
+	char *p;
+	char *x;
 
-void	test_tiny_zone(void);
+	p = malloc(64);
+	p = realloc(p, 4000);
+	x = malloc(32);
+	x = realloc(x, 64);
+}
 
+void realloc_zone_end()
+{
+	char *p;
+	char *x;
 
-#endif
+	p = malloc(64);
+	p = realloc(p, 12192);
+	x = malloc(32);
+	x = realloc(x, 64);
+}

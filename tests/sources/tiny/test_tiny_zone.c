@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:02:08 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 14:14:12 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 17:05:12 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	test_tiny_zone(void)
 	testcase(defrag_backward, "BACKWARD DEFRAGMENTATION");
 	testcase(realloc_page_end, "REALLOC AT THE PAGE END");
 	testcase(realloc_zone_end, "REALLOC AT THE ZONE END");
-
+	testcase(multi_thread_allocation, "ALOCATION WITH 2 THREADS");
 }
