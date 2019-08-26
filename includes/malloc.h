@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:08:06 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 16:23:39 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ typedef struct				s_block_header
 
 /* Page part of specified address */
 # define PAGE(x) ((TO_SCALAR(x) >> 12) << 12)
-/* Adress of page`s last byte of specified address */
-# define PAGE_END(x) (TO_SCALAR(x) | 0xFFF)
+/* Page limit address. Address of the first byte of the next page */
+# define PAGE_LIMIT(x) ((TO_SCALAR(x) | 0xFFF) + 1)
 
 /* Offest ftom start of one block to start of another */
 # define BLOCKS_OFFSET(x, y) ((TO_SCALAR(y) - TO_SCALAR(x)))
 
 // TODO: TEST WITH ONE BLOCK ON THE PAGE
-# define _PBE(x) (PAGE_END(BLOCK_END(x)) - TO_SCALAR(x))
+# define _PBE(x) (PAGE_LIMIT(BLOCK_END(x) - 1) - TO_SCALAR(x))
 /* Size of block with gap to next the block */
 # define REAL_BLOCK_SIZE(x) (x->next ? BLOCKS_OFFSET(x, x->next) : _PBE(x))
 
@@ -87,7 +87,6 @@ typedef struct				s_block_header
 typedef struct				s_memory_zone
 {
 	t_block_header			*first_block;
-	t_block_header			*last_block;
 	int						type;
 	size_t					size;
 	size_t					data_size;
@@ -104,6 +103,7 @@ void	show_alloc_mem(void);
 void	*allocate_memory(size_t size);
 void 	reset_allocations(void);
 void	*init_zone(t_memory_zone *zone);
+void	append_zone(t_memory_zone *zone);
 void	fragment_block(t_block_header *header);
 void	defragment_block(t_block_header *header);
 void 	init_block_header(

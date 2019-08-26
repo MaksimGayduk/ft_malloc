@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:12:50 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:10:13 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 16:23:20 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,40 @@ void init_block_header(
 static void fill_memory_with_blocks(
 	t_memory_zone *zone,
 	char *mem,
-	size_t allocation_size)
+	size_t allocation_size
+	)
 {
 	register unsigned int	i;
-	t_block_header			*last_block;
+	t_block_header			*header;
 	t_block_header			block_header;
 	size_t					full_block_size;
 
 	i = 0;
 	full_block_size = HEADER_SIZE + zone->data_size;
-	last_block = zone->last_block;
+	header = NULL;
 	while (i <= allocation_size - full_block_size)
 	{
-		init_block_header(&block_header, zone->type, zone->data_size, last_block);
+		init_block_header(&block_header, zone->type, zone->data_size, header);
 		ft_memcpy(&mem[i], &block_header, sizeof(block_header));
-		if (last_block)
-			last_block->next = (t_block_header *)&mem[i];
-		last_block = (t_block_header *)&mem[i];
+		if (header)
+			header->next = (t_block_header *)&mem[i];
+		header = (t_block_header *)&mem[i];
 		i += full_block_size;
-		zone->last_block = last_block;
 	}
+}
+
+void	append_zone(t_memory_zone *zone)
+{
+	char 			*mem;
+	t_block_header	*header;
+
+	header = zone->first_block;
+	while (header->next)
+		header = header->next;
+	if (!(mem = init_zone(zone)))
+		return;
+	header->next = (t_block_header *)mem;
+	header->next->prev = header;
 }
 
 void *init_zone(t_memory_zone *zone)

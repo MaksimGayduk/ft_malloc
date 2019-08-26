@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:36:59 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:10:26 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 16:01:15 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	fragment_block(t_block_header *header)
 {
 	t_block_header fragment_header;
+	t_block_header *fragment_header_addr;
 	size_t	size_gap;
 
 	if (!header)
@@ -25,10 +26,11 @@ void	fragment_block(t_block_header *header)
 		init_block_header(&fragment_header, header->zone_type,
 			size_gap - HEADER_SIZE, header);
 		fragment_header.next = header->next;
-		ft_memcpy(DATA_END_ADDRESS(header), &fragment_header, HEADER_SIZE);
+		fragment_header_addr = (t_block_header *)DATA_END_ADDRESS(header);
+		ft_memcpy(fragment_header_addr, &fragment_header, HEADER_SIZE);
 		if (header->next)
-			header->next->prev = (t_block_header *)DATA_END_ADDRESS(header);
-		header->next = header->next->prev;
+			header->next->prev = fragment_header_addr;
+		header->next = fragment_header_addr;
 	}
 }
 

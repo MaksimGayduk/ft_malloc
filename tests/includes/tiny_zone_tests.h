@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:03:57 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:28:21 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 14:13:15 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 void	basic_usage(void);
 void	fragmentation(void);
-void 	defragmentation_backward();
+void 	defrag_backward(void);
+void	realloc_page_end(void);
+void	realloc_zone_end(void);
+
 
 #endif

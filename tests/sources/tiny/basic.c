@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:00:56 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:30:17 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 14:14:59 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void fragmentation(void)
 	x = malloc(10);
 }
 
-void defragmentation_backward()
+void defrag_backward()
 {
 	char *p;
 	char *x;
@@ -46,10 +46,32 @@ void defragmentation_backward()
 	x = malloc(10);
 	show_alloc_mem();
 	ft_putendl(
-		"\nMemory will be freed and reallocated"
+		"\nMemory will be freed and allocated"
 		" in the same memory blocks");
 	free(p);
 	free(x);
-	p = malloc(10);
+	p = malloc(15);
 	x = malloc(10);
+}
+
+void realloc_page_end()
+{
+	char *p;
+	char *x;
+
+	p = malloc(64);
+	p = realloc(p, 4000);
+	x = malloc(32);
+	x = realloc(x, 64);
+}
+
+void realloc_zone_end()
+{
+	char *p;
+	char *x;
+
+	p = malloc(64);
+	p = realloc(p, 12192);
+	x = malloc(32);
+	x = realloc(x, 64);
 }
