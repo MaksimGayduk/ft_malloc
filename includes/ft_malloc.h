@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 11:08:39 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:19:31 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,6 @@ typedef struct				s_block_header
 /* Adress of page`s last byte of specified address */
 # define PAGE_END(x) (TO_SCALAR(x) | 0xFFF)
 
-/*
-** Two blocks are continious if the last byte of firts block is
-** on the same or nearby page with first byte of second block
-*/
-# define BLOCKS_CONTINIOUS(x, y) ((PAGE(y) - PAGE(BLOCK_END(x))) <= 1)
-# define GET_ZONE_TYPE(x) ((x > TINY_BLOCK_SIZE) + (x > SMALL_BLOCK_SIZE))
-
 /* Offest ftom start of one block to start of another */
 # define BLOCKS_OFFSET(x, y) ((TO_SCALAR(y) - TO_SCALAR(x)))
 
@@ -80,6 +73,14 @@ typedef struct				s_block_header
 
 /* Size of data section with gap to the next block */
 # define REAL_DATA_SIZE(x) (REAL_BLOCK_SIZE(x) - HEADER_SIZE)
+
+/*
+** Two blocks are continious if the last byte of firts block is
+** on the same or nearby page with first byte of second block
+*/
+# define BLOCKS_CONTINIOUS(x, y) ((PAGE(y) - PAGE(BLOCK_END(x))) <= 1)
+# define GET_ZONE_TYPE(x) ((x > TINY_BLOCK_SIZE) + (x > SMALL_BLOCK_SIZE))
+# define GET_BLOCK_ZONE(x) (g_memory_zones[((int)(x->zone_type))])
 
 typedef struct				s_memory_zone
 {

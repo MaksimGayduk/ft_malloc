@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:36:59 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 11:10:20 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:38:50 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static t_block_header *defragment_back(t_block_header *header)
 	{
 		size = FULL_BLOCK_SIZE(start_block);
 		size += REAL_DATA_SIZE(header);
-		if (!(size <= g_memory_zones[(int)start_block->zone_type].data_size
-			&& BLOCKS_CONTINIOUS(header, start_block)))
+		if (size > GET_BLOCK_ZONE(start_block).data_size ||
+			!BLOCKS_CONTINIOUS(header, start_block))
 			break;
 		header->data_size = size;
 		header->next = start_block->next;
@@ -53,7 +53,29 @@ static t_block_header *defragment_back(t_block_header *header)
 	return (start_block);
 }
 
+static t_block_header *defragment_forward(t_block_header *header)
+{
+	t_block_header *start_block;
+	size_t size;
+
+	start_block = header;
+	while ((header = header->next) && header->is_free)
+	{
+		size = GET_BLOCK_ZONE(start_block).data_size;
+		size = REAL_DATA_SIZE(start_block);
+		size += FULL_BLOCK_SIZE(header);
+		if (size > GET_BLOCK_ZONE(start_block).data_size ||
+			!BLOCKS_CONTINIOUS(header, start_block))
+			break;
+		start_block->data_size = size;
+		start_block->next = header->next;
+		header->next->prev = start_block;
+	}
+	return (start_block);
+}
+
 void	defragment_block(t_block_header *header)
 {
 	header = defragment_back(header);
+	header = defragment_forward(header);
 }

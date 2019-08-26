@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 10:51:45 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/26 11:27:18 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ void	basic_usage_tiny(void)
 	show_alloc_mem();
 }
 
+void	test_defragment_forward()
+{
+	char *p;
+	p = malloc(10);
+	free(p);
+}
+
 int main(void)
 {
 	uintptr_t addr;
@@ -36,6 +43,7 @@ int main(void)
 	// char *c;
 
 	basic_usage_tiny();
+	test_defragment_forward();
 
 	// for (int i = 0; i < 200; i++)
 	// {
