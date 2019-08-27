@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 11:09:01 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 14:36:25 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/27 15:07:24 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,3 @@ void	l_realloc(void)
 	p = realloc(p, 10000);
 	x = realloc(x, 14444);
 }
-
-// void l_realloc_zone_end()
-// {
-// 	char *p;
-// 	char *x;
-
-// 	p = malloc(64);
-// 	p = realloc(p, 12192);
-// 	x = malloc(32);
-// 	x = realloc(x, 64);
-// }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multi_thread.c                                     :+:      :+:    :+:   */
+/*   l_multi_thread.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 16:45:29 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 15:08:24 by maks             ###   ########.fr       */
+/*   Created: 2019/08/27 15:07:47 by maks              #+#    #+#             */
+/*   Updated: 2019/08/27 15:09:26 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static void	*thread_malloc(void *args)
 	char *p;
 
 	args = NULL;
-	p = malloc(42);
-	p = realloc(p, 142);
+	p = malloc(42422);
+	p = realloc(p, 42422);
 	free(p);
-	p = malloc(24);
+	p = malloc(77777);
 	return (SUCCESS);
 }
 
-void	t_multi_thread_allocation(void)
+void	l_multi_thread_allocation(void)
 {
 	pthread_t threads[THREADS_NUM];
     unsigned int i;
