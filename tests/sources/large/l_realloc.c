@@ -1,19 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_large_zone.c                                  :+:      :+:    :+:   */
+/*   l_realloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 18:34:12 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 11:11:26 by maks             ###   ########.fr       */
+/*   Created: 2019/08/27 11:09:01 by maks              #+#    #+#             */
+/*   Updated: 2019/08/27 14:36:25 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc_tests.h"
 
-void	test_large_zone(void)
+void	l_realloc(void)
 {
-	testcase(l_basic_usage, "BASIC ALLOCATION IN LARGE ZONE");
-	testcase(l_realloc, "BASIC REALLOCATION IN LARGE ZONE");
+	char *p;
+	char *x;
+
+	p = malloc(5000);
+	ft_memset(p, 'p', 5000);
+	x = malloc(7777);
+	ft_memset(x, 'x', 7777);
+	p = realloc(p, 9000);
+	p = realloc(p, 8200);
+	p = realloc(p, 10000);
+	x = realloc(x, 14444);
 }
+
+// void l_realloc_zone_end()
+// {
+// 	char *p;
+// 	char *x;
+
+// 	p = malloc(64);
+// 	p = realloc(p, 12192);
+// 	x = malloc(32);
+// 	x = realloc(x, 64);
+// }

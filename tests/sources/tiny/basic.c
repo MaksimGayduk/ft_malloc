@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:00:56 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 18:48:18 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/27 11:38:42 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	t_basic_usage(void)
 	char *c;
 
 	p = malloc(32);
+	memset(p, 'p', 32);
 	x = malloc(20);
+	memset(x, 'x', 20);
 	c = malloc(11);
+	memset(c, 'c', 11);
 	show_alloc_mem();
 	ft_putendl("Memory will be freed");
 	free(p);
@@ -34,7 +37,10 @@ void t_fragmentation(void)
 	char *x;
 
 	p = malloc(10);
+	memset(p, 'p', 10);
 	x = malloc(10);
+	memset(x, 'x', 10);
+
 }
 
 void t_defrag_backward()
@@ -43,7 +49,9 @@ void t_defrag_backward()
 	char *x;
 
 	p = malloc(10);
+	memset(p, 'p', 10);
 	x = malloc(10);
+	memset(x, 'x', 10);
 	show_alloc_mem();
 	ft_putendl(
 		"\nMemory will be freed and allocated"
@@ -51,5 +59,7 @@ void t_defrag_backward()
 	free(p);
 	free(x);
 	p = malloc(15);
+	memset(p, 'p', 15);
 	x = malloc(10);
+	memset(x, 'x', 10);
 }

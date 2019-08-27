@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:15:36 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 16:14:59 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/27 14:34:16 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ t_block_header	*extend_block(void *ptr, size_t size)
 	if (!header)
 		return (NULL);
 	extended_size = REAL_DATA_SIZE(start_block);
+	if (size < extended_size)
+	{
+		start_block->data_size = size;
+		return start_block;
+	}
 	while ((header = header->next))
 	{
 		if (!(header->is_free == FT_TRUE &&
@@ -43,12 +48,14 @@ t_block_header	*extend_block(void *ptr, size_t size)
 
 t_block_header	*relocate_block(void *ptr, size_t size)
 {
-	void *data_addr;
+	void			*data_addr;
+	t_block_header	*header;
 
+	header = HEADER_ADDRESS(ptr);
 	data_addr = malloc(size);
 	if (data_addr)
 	{
-		ft_memcpy(data_addr, ptr, size);
+		ft_memcpy(data_addr, ptr, header->data_size);
 		free(ptr);
 	}
 	return (HEADER_ADDRESS(data_addr));
@@ -63,9 +70,9 @@ void			*realloc(void *ptr, size_t size)
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{
 		header = extend_block(ptr, size);
-		if (header)
+		if (header && header->zone_type != LARGE)
 			fragment_block(header);
-		else
+		else if (!header)
 			header = relocate_block(ptr, size);
 		pthread_mutex_unlock(&g_malloc_mutex);
 		return (DATA_ADDRESS(header));

@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 19:12:01 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/27 11:51:09 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void *get_separate_block(t_memory_zone *zone, size_t size)
 
 void *malloc(size_t size)
 {
-	void *ptr;
+	t_block_header *ptr;
 	const int zone_type = GET_ZONE_TYPE(size);
 
 	if (!size)
