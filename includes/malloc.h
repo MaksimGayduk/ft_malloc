@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 18:35:08 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/27 14:43:48 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/mman.h>
 # include <pthread.h>
+# include <sys/resource.h>
 # include "libft.h"
 
 # define ZONE_QTY 3
