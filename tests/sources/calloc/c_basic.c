@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:04:47 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 14:38:32 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 16:22:41 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	c_basic_usage(void)
 
 void	c_loop_usage(void)
 {
-	unsigned int i;
-	char *p;
+	unsigned int	i;
+	char			*p;
 
 	i = 0;
 	while (i < 42000)
@@ -44,8 +44,8 @@ void	c_loop_usage(void)
 
 void	c_loop_leaks(void)
 {
-	unsigned int i;
-	char *p;
+	unsigned int	i;
+	char			*p;
 
 	i = 0;
 	while (i < 21)

@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:07:47 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 14:41:31 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 16:23:55 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	*thread_malloc(void *args)
 
 void		c_multi_thread_allocation(void)
 {
-	pthread_t threads[THREADS_NUM];
-    unsigned int i;
+	pthread_t		threads[THREADS_NUM];
+	unsigned int	i;
 
 	i = 0;
 	while (i < THREADS_NUM)
@@ -36,7 +36,6 @@ void		c_multi_thread_allocation(void)
 		}
 		i++;
 	}
-
 	i = 0;
 	while (i < THREADS_NUM)
 	{

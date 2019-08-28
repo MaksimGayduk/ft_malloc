@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:21:11 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 13:23:01 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 16:30:36 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "malloc.h"
 
-void testcase(void (*test)(void), char *title);
+void	testcase(void (*test)(void), char *title);
 
 #endif

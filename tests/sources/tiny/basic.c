@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:00:56 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 11:38:42 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 16:26:57 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	t_basic_usage(void)
 	free(c);
 }
 
-void t_fragmentation(void)
+void	t_fragmentation(void)
 {
 	char *p;
 	char *x;
@@ -40,10 +40,9 @@ void t_fragmentation(void)
 	memset(p, 'p', 10);
 	x = malloc(10);
 	memset(x, 'x', 10);
-
 }
 
-void t_defrag_backward()
+void	t_defrag_backward(void)
 {
 	char *p;
 	char *x;

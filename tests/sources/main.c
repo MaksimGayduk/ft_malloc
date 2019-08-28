@@ -6,17 +6,16 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 14:10:05 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 16:14:08 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc_tests.h"
 
-int main(void)
+int	main(void)
 {
 	test_tiny_zone();
 	test_large_zone();
 	test_calloc();
-
 	return (0);
 }
