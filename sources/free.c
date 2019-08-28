@@ -6,13 +6,13 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:18:46 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 10:56:01 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 14:59:08 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static	void unallocate_memory(t_memory_zone *zone, t_block_header *header)
+static void	unallocate_memory(t_memory_zone *zone, t_block_header *header)
 {
 	size_t size;
 
@@ -27,13 +27,13 @@ static	void unallocate_memory(t_memory_zone *zone, t_block_header *header)
 	munmap(header, size);
 }
 
-void	free(void *ptr)
+void		free(void *ptr)
 {
 	t_block_header	*header;
 	int				zone_type;
 
 	if (!ptr)
-		return;
+		return ;
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{
 		header = HEADER_ADDRESS(ptr);

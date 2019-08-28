@@ -6,11 +6,23 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:15:36 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 14:34:16 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 15:19:15 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+t_block_header	*relink_blocks(
+	t_block_header *start,
+	t_block_header *end,
+	size_t size)
+{
+	start->next = end->next;
+	start->data_size = size;
+	if (end->next)
+		end->next->prev = start;
+	return (start);
+}
 
 t_block_header	*extend_block(void *ptr, size_t size)
 {
@@ -18,15 +30,15 @@ t_block_header	*extend_block(void *ptr, size_t size)
 	t_block_header	*start_block;
 	t_block_header	*header;
 
+	if (!ptr)
+		return (NULL);
 	start_block = HEADER_ADDRESS(ptr);
 	header = start_block;
-	if (!header)
-		return (NULL);
 	extended_size = REAL_DATA_SIZE(start_block);
 	if (size < extended_size)
 	{
 		start_block->data_size = size;
-		return start_block;
+		return (start_block);
 	}
 	while ((header = header->next))
 	{
@@ -35,13 +47,7 @@ t_block_header	*extend_block(void *ptr, size_t size)
 			return (NULL);
 		extended_size += FULL_BLOCK_SIZE(header);
 		if (extended_size >= size)
-		{
-			start_block->next = header->next;
-			start_block->data_size = size;
-			if (header->next)
-				header->next->prev = start_block;
-			return (start_block);
-		}
+			return (relink_blocks(start_block, header, size));
 	}
 	return (NULL);
 }

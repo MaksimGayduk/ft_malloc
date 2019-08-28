@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 18:41:20 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 11:41:42 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 15:20:15 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char *g_zone_labels[] = {
 	"TINY", "SMALL", "LARGE"
 };
 
-static void print_zone_info(unsigned int zone_number)
+static void		print_zone_info(unsigned int zone_number)
 {
 	uintptr_t zone_start;
 
@@ -29,7 +29,7 @@ static void print_zone_info(unsigned int zone_number)
 	ft_putchar('\n');
 }
 
-static size_t print_alloc_blocks(t_block_header *head)
+static size_t	print_alloc_blocks(t_block_header *head)
 {
 	uintptr_t	block_start;
 	size_t		allocated_size;
@@ -48,13 +48,12 @@ static size_t print_alloc_blocks(t_block_header *head)
 			ft_putstr(" bytes\n");
 			allocated_size += head->data_size;
 		}
-
 		head = head->next;
 	}
-	return allocated_size;
+	return (allocated_size);
 }
 
-void show_alloc_mem(void)
+void			show_alloc_mem(void)
 {
 	unsigned int	i;
 	size_t			total_size;

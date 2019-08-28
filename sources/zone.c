@@ -6,13 +6,13 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:12:50 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 19:14:11 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 15:21:37 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void init_block_header(
+void		init_block_header(
 	t_block_header *block_header,
 	char zone_type,
 	size_t data_size,
@@ -25,11 +25,10 @@ void init_block_header(
 	block_header->prev = prev;
 }
 
-static void fill_memory_with_blocks(
+static void	fill_memory_with_blocks(
 	t_memory_zone *zone,
 	char *mem,
-	size_t allocation_size
-	)
+	size_t allocation_size)
 {
 	register unsigned int	i;
 	t_block_header			*header;
@@ -50,25 +49,25 @@ static void fill_memory_with_blocks(
 	}
 }
 
-void	append_zone(t_memory_zone *zone)
+void		append_zone(t_memory_zone *zone)
 {
-	char 			*mem;
+	char			*mem;
 	t_block_header	*header;
 
 	header = zone->first_block;
 	while (header->next)
 		header = header->next;
 	if (!(mem = init_zone(zone)))
-		return;
+		return ;
 	header->next = (t_block_header *)mem;
 	header->next->prev = header;
 }
 
-void *init_zone(t_memory_zone *zone)
+void		*init_zone(t_memory_zone *zone)
 {
 	size_t					full_block_size;
 	size_t					allocation_size;
-	char 					*mem;
+	char					*mem;
 
 	full_block_size = HEADER_SIZE + zone->data_size;
 	allocation_size = ALIGN_TO_PAGE_SIZE(full_block_size * zone->block_number);

@@ -6,22 +6,23 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:14:10 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 13:55:07 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 15:05:43 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void *allocate_memory(size_t size)
+void		*allocate_memory(size_t size)
 {
 	void *mem;
+
 	mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	if (mem == MAP_FAILED)
-		return NULL;
+		return (NULL);
 	return (mem);
 }
 
-static void unallocate_zone(t_memory_zone *zone)
+static void	unallocate_zone(t_memory_zone *zone)
 {
 	t_block_header	*header;
 	t_block_header	*start;
@@ -37,9 +38,8 @@ static void unallocate_zone(t_memory_zone *zone)
 		size += REAL_BLOCK_SIZE(prev);
 		if (!header->next)
 		{
-			size += REAL_BLOCK_SIZE(header);
-			munmap(start, ALIGN_TO_PAGE_SIZE(size));
-			break;
+			munmap(start, ALIGN_TO_PAGE_SIZE(size + REAL_BLOCK_SIZE(header)));
+			return ;
 		}
 		else if (!BLOCKS_CONTINIOUS(prev, header))
 		{
@@ -51,13 +51,13 @@ static void unallocate_zone(t_memory_zone *zone)
 	}
 }
 
-void reset_allocations(void)
+void		reset_allocations(void)
 {
-	t_memory_zone *zone;
-	unsigned int i;
+	t_memory_zone	*zone;
+	unsigned int	i;
 
 	i = 0;
-	while(i < ZONE_QTY)
+	while (i < ZONE_QTY)
 	{
 		zone = &g_memory_zones[i];
 		if (zone->first_block)
@@ -68,7 +68,7 @@ void reset_allocations(void)
 	}
 }
 
-size_t get_total_allocated_size()
+size_t		get_total_allocated_size(void)
 {
 	unsigned int	i;
 	size_t			total_size;
@@ -80,6 +80,5 @@ size_t get_total_allocated_size()
 		total_size = g_memory_zones[i].size;
 		i++;
 	}
-
-	return total_size;
+	return (total_size);
 }
