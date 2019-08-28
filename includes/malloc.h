@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 12:58:39 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 13:54:37 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void 	init_block_header(
 			char zone,
 			size_t data_size,
 			t_block_header *prev);
+size_t	get_total_allocated_size();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:14:10 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 13:45:27 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 13:55:07 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,20 @@ void reset_allocations(void)
 		zone->size = 0;
 		i++;
 	}
+}
+
+size_t get_total_allocated_size()
+{
+	unsigned int	i;
+	size_t			total_size;
+
+	total_size = 0;
+	i = 0;
+	while (i < ZONE_QTY)
+	{
+		total_size = g_memory_zones[i].size;
+		i++;
+	}
+
+	return total_size;
 }
