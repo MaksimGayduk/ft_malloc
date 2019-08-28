@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 14:43:48 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 12:58:39 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define SMALL_BLOCK_SIZE	4096
 
 # define TINY_BLOCK_NUMBER	120
-# define SMALL_BLOCK_NUMBER	100
+# define SMALL_BLOCK_NUMBER	120
 
 extern pthread_mutex_t		g_malloc_mutex;
 
@@ -70,8 +70,12 @@ typedef struct				s_block_header
 # define BLOCKS_OFFSET(x, y) ((TO_SCALAR(y) - TO_SCALAR(x)))
 
 # define _PBE(x) (PAGE_LIMIT(BLOCK_END(x) - 1) - TO_SCALAR(x))
+
+/* Block has next element and it on the same or next page */
+# define NOT_ALONE(x) (x->next && BLOCKS_CONTINIOUS(x, x->next))
+
 /* Size of block with gap to next the block */
-# define REAL_BLOCK_SIZE(x) (x->next ? BLOCKS_OFFSET(x, x->next) : _PBE(x))
+# define REAL_BLOCK_SIZE(x) (NOT_ALONE(x) ? BLOCKS_OFFSET(x, x->next) : _PBE(x))
 
 /* Size of data section with gap to the next block */
 # define REAL_DATA_SIZE(x) (REAL_BLOCK_SIZE(x) - HEADER_SIZE)
@@ -80,7 +84,7 @@ typedef struct				s_block_header
 ** Two blocks are continious if the last byte of firts block is
 ** on the same or nearby page with first byte of second block
 */
-# define BLOCKS_CONTINIOUS(x, y) ((PAGE(y) - PAGE(BLOCK_END(x))) <= 1)
+# define BLOCKS_CONTINIOUS(x, y) (((PAGE(y) - PAGE(BLOCK_END(x))) >> 12) <= 1)
 # define GET_ZONE_TYPE(x) ((x > TINY_BLOCK_SIZE) + (x > SMALL_BLOCK_SIZE))
 # define GET_BLOCK_ZONE(x) (g_memory_zones[((int)(x->zone_type))])
 

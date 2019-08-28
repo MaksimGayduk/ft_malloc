@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:14:10 by maks              #+#    #+#             */
-/*   Updated: 2019/08/26 16:24:45 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 13:45:27 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,49 @@ void *allocate_memory(size_t size)
 	return (mem);
 }
 
+static void unallocate_zone(t_memory_zone *zone)
+{
+	t_block_header	*header;
+	t_block_header	*start;
+	t_block_header	*prev;
+	size_t			size;
+
+	size = 0;
+	header = zone->first_block;
+	start = header;
+	prev = header;
+	while ((header = header->next))
+	{
+		size += REAL_BLOCK_SIZE(prev);
+		if (!header->next)
+		{
+			size += REAL_BLOCK_SIZE(header);
+			munmap(start, ALIGN_TO_PAGE_SIZE(size));
+			break;
+		}
+		else if (!BLOCKS_CONTINIOUS(prev, header))
+		{
+			munmap(start, ALIGN_TO_PAGE_SIZE(size));
+			start = header;
+			size = 0;
+		}
+		prev = header;
+	}
+}
+
 void reset_allocations(void)
 {
+	t_memory_zone *zone;
 	unsigned int i;
-	t_block_header *first_block;
-	size_t total_size;
 
-	first_block = g_memory_zones[0].first_block;
 	i = 0;
-	total_size = 0;
 	while(i < ZONE_QTY)
 	{
-		total_size += g_memory_zones[i].size;
-		g_memory_zones[i].first_block = NULL;
-		g_memory_zones[i].size = 0;
+		zone = &g_memory_zones[i];
+		if (zone->first_block)
+			unallocate_zone(zone);
+		zone->first_block = NULL;
+		zone->size = 0;
 		i++;
 	}
-
-	total_size = ALIGN_TO_PAGE_SIZE(total_size);
-	munmap(first_block, total_size);
 }
