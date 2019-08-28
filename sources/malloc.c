@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 13:56:24 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 14:36:08 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void *malloc(size_t size)
 	if (!size || size > rlimit.rlim_cur ||
 		size + get_total_allocated_size() > rlimit.rlim_cur)
 		return (NULL);
-	ptr = NULL;
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{
 		if (zone_type == TINY || zone_type == SMALL)
@@ -95,6 +94,7 @@ void *malloc(size_t size)
 		else
 			ptr = get_separate_block(&g_memory_zones[zone_type], size);
 		pthread_mutex_unlock(&g_malloc_mutex);
+		return (DATA_ADDRESS(ptr));
 	}
-	return (DATA_ADDRESS(ptr));
+	return (NULL);
 }

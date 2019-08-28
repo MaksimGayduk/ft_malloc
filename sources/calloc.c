@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 13:07:41 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 14:10:05 by maks             ###   ########.fr       */
+/*   Created: 2019/08/28 13:46:36 by maks              #+#    #+#             */
+/*   Updated: 2019/08/28 14:36:17 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_tests.h"
+#include "malloc.h"
 
-int main(void)
+void	*calloc(size_t num, size_t size)
 {
-	test_tiny_zone();
-	test_large_zone();
-	test_calloc();
+	void	*ptr;
+	size_t	allocation_size;
 
-	return (0);
+	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
+	{
+		allocation_size = num * size;
+		ptr = malloc(allocation_size);
+		if (ptr)
+			ft_bzero(ptr, allocation_size);
+		pthread_mutex_unlock(&g_malloc_mutex);
+		return (ptr);
+	}
+	return (NULL);
 }

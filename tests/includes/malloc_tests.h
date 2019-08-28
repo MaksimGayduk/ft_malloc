@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 13:03:05 by maks              #+#    #+#             */
-/*   Updated: 2019/08/27 15:10:54 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/28 14:40:12 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,11 @@ void	test_large_zone(void);
 void	l_basic_usage(void);
 void	l_realloc(void);
 void	l_multi_thread_allocation(void);
+
+void	test_calloc(void);
+void	c_basic_usage(void);
+void	c_loop_usage(void);
+void	c_loop_leaks(void);
+void	c_multi_thread_allocation(void);
 
 #endif
