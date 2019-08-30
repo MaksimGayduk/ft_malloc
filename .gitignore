@@ -5,6 +5,7 @@ objs
 deps
 *.a
 a.out
+test
 
 ft_malloc_test
 

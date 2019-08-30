@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 15:07:39 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 13:32:20 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	*malloc(size_t size)
 	const int		zone_type = GET_ZONE_TYPE(size);
 
 	getrlimit(RLIMIT_AS, &rlimit);
-	if (!size || size > rlimit.rlim_cur ||
-		size + get_total_allocated_size() > rlimit.rlim_cur)
+	if (!size || size + get_total_allocated_size() > rlimit.rlim_cur)
 		return (NULL);
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{

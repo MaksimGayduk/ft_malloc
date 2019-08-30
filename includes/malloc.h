@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 15:00:56 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 13:34:46 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 # define ZONE_QTY 3
 
-# define TINY_BLOCK_SIZE	512
-# define SMALL_BLOCK_SIZE	4096
+# define TINY_BLOCK_SIZE	64
+# define SMALL_BLOCK_SIZE	1024
 
 # define TINY_BLOCK_NUMBER	120
-# define SMALL_BLOCK_NUMBER	120
+# define SMALL_BLOCK_NUMBER	160
 
 extern pthread_mutex_t		g_malloc_mutex;
 
