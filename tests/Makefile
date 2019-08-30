@@ -6,7 +6,7 @@
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 14:35:36 by maks              #+#    #+#              #
-#    Updated: 2019/08/28 14:10:18 by maks             ###   ########.fr        #
+#    Updated: 2019/08/30 14:03:18 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,11 @@ all: prepare_dirs build_ft_malloc $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(FT_MALLOC) $(INC) $^ -o $(NAME) ../libft/libft.a
+
+dl: prepare_dirs build_ft_malloc empty
+
+empty: main.c
+	$(CC) $(FLAGS) $(INC) $^ -o $(NAME) ../libft/libft.a
 
 prepare_dirs:
 	@mkdir -p $(OBJ_DIR)

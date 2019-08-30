@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:15:36 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 15:19:15 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 16:09:18 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			*realloc(void *ptr, size_t size)
 {
 	t_block_header *header;
 
-	if (!size)
+	if (!valid_data_address(ptr) || !size || !address_space_exceded(size))
 		return (NULL);
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{

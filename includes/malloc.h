@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:29:23 by maks              #+#    #+#             */
-/*   Updated: 2019/08/30 13:34:46 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 16:07:14 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define SMALL_BLOCK_SIZE	1024
 
 # define TINY_BLOCK_NUMBER	120
-# define SMALL_BLOCK_NUMBER	160
+# define SMALL_BLOCK_NUMBER	128
 
 extern pthread_mutex_t		g_malloc_mutex;
 
@@ -134,5 +134,7 @@ void						init_block_header(
 								size_t data_size,
 								t_block_header *prev);
 size_t						get_total_allocated_size(void);
+t_bool						valid_data_address(void *ptr);
+t_bool						address_space_exceded(size_t size);
 
 #endif

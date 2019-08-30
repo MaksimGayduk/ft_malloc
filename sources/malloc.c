@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:21:31 by maks              #+#    #+#             */
-/*   Updated: 2019/08/30 13:32:20 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 16:07:56 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ void	*get_separate_block(t_memory_zone *zone, size_t size)
 void	*malloc(size_t size)
 {
 	t_block_header	*ptr;
-	struct rlimit	rlimit;
 	const int		zone_type = GET_ZONE_TYPE(size);
 
-	getrlimit(RLIMIT_AS, &rlimit);
-	if (!size || size + get_total_allocated_size() > rlimit.rlim_cur)
+	if (!size || address_space_exceded(size))
 		return (NULL);
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{

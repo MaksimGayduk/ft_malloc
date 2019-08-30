@@ -6,66 +6,32 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 16:14:10 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 15:05:43 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 16:08:14 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void		*allocate_memory(size_t size)
+t_bool	valid_data_address(void *ptr)
 {
-	void *mem;
+	t_counter		i;
+	t_block_header	*block;
 
-	mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	if (mem == MAP_FAILED)
-		return (NULL);
-	return (mem);
-}
-
-static void	unallocate_zone(t_memory_zone *zone)
-{
-	t_block_header	*header;
-	t_block_header	*start;
-	t_block_header	*prev;
-	size_t			size;
-
-	size = 0;
-	header = zone->first_block;
-	start = header;
-	prev = header;
-	while ((header = header->next))
-	{
-		size += REAL_BLOCK_SIZE(prev);
-		if (!header->next)
-		{
-			munmap(start, ALIGN_TO_PAGE_SIZE(size + REAL_BLOCK_SIZE(header)));
-			return ;
-		}
-		else if (!BLOCKS_CONTINIOUS(prev, header))
-		{
-			munmap(start, ALIGN_TO_PAGE_SIZE(size));
-			start = header;
-			size = 0;
-		}
-		prev = header;
-	}
-}
-
-void		reset_allocations(void)
-{
-	t_memory_zone	*zone;
-	unsigned int	i;
-
+	if (!ptr)
+		return (FT_FALSE);
 	i = 0;
-	while (i < ZONE_QTY)
+	while(i < ZONE_QTY)
 	{
-		zone = &g_memory_zones[i];
-		if (zone->first_block)
-			unallocate_zone(zone);
-		zone->first_block = NULL;
-		zone->size = 0;
+		block = g_memory_zones[i].first_block;
+		while (block)
+		{
+			if (block == HEADER_ADDRESS(ptr))
+				return (FT_TRUE);
+			block = block->next;
+		}
 		i++;
 	}
+	return (FT_FALSE);
 }
 
 size_t		get_total_allocated_size(void)
@@ -81,4 +47,12 @@ size_t		get_total_allocated_size(void)
 		i++;
 	}
 	return (total_size);
+}
+
+t_bool		address_space_exceded(size_t size)
+{
+	struct rlimit	rlimit;
+
+	getrlimit(RLIMIT_AS, &rlimit);
+	return (size + get_total_allocated_size() >= rlimit.rlim_cur);
 }

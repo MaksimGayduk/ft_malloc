@@ -6,7 +6,7 @@
 #    By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 12:13:33 by maks              #+#    #+#              #
-#    Updated: 2019/08/23 15:36:44 by maks             ###   ########.fr        #
+#    Updated: 2019/08/30 14:08:39 by maks             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ endif
 
 # Compiler
 CC				:= gcc
-override FLAGS	+= -Wall -Wextra -Werror -pipe
+override FLAGS	+= -Wall -Wextra -Werror -pipe -fPIC -g
 
 SRC_DIR := ./sources
 OBJ_DIR	:= ./objs

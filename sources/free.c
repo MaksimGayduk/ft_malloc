@@ -6,7 +6,7 @@
 /*   By: maks <maksym.haiduk@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 16:18:46 by maks              #+#    #+#             */
-/*   Updated: 2019/08/28 14:59:08 by maks             ###   ########.fr       */
+/*   Updated: 2019/08/30 16:00:34 by maks             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		free(void *ptr)
 	t_block_header	*header;
 	int				zone_type;
 
-	if (!ptr)
+	if (!valid_data_address(ptr))
 		return ;
 	if (pthread_mutex_lock(&g_malloc_mutex) == 0)
 	{
